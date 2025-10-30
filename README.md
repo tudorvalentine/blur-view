@@ -28,19 +28,29 @@ https://github.com/candlefinance/blur-view/assets/12258850/66fc73aa-7160-41b2-97
 
 ## Installation
 
+Install from GitHub:
+
 ```sh
-yarn add @candlefinance/blur-view
-cd ios && pod install
+yarn add https://github.com/tudorvalentine/blur-view.git
 ```
 
-## Usage
+Then run pod install:
 
-### VariableBlurView (New!)
+```sh
+cd ios && pod install && cd ..
+```
+
+**Important:** After installation, you need to:
+1. Clean your build folder in Xcode (Cmd+Shift+K)
+2. Rebuild the app (Cmd+R)
+3. If you still see errors, try: `npx react-native start --reset-cache`
+
+## Usage
 
 Use `VariableBlurView` to create gradient blur:
 
 ```js
-import { VariableBlurView, VariableBlurDirection } from '@candlefinance/blur-view';
+import { VariableBlurView, VariableBlurDirection } from '@tudorvalentine/blur-view';
 
 // Blur from top
 <VariableBlurView
@@ -68,21 +78,6 @@ import { VariableBlurView, VariableBlurDirection } from '@candlefinance/blur-vie
 />
 ```
 
-### BlurView (Original)
-
-Use `BlurView` for uniform blur:
-
-```js
-import { BlurView } from '@candlefinance/blur-view';
-
-<BlurView
-  blurTintColor="#ff006780" // hex with opacity
-  colorTintOpacity={0.2}
-  blurRadius={10}
-  style={styles.blur}
-/>;
-```
-
 ## API Documentation
 
 ### VariableBlurView Props
@@ -94,16 +89,6 @@ import { BlurView } from '@candlefinance/blur-view';
 | `startOffset`   | `number`                                               | 0                         | Gradient start offset. Negative value (e.g. -0.1) creates a smoother transition                |
 | `style`         | `ViewStyle`                                            | required                  | React Native styles                                                                             |
 
-### BlurView Props (original component)
-
-| Property            | Type     | Default   | Description                             |
-| ------------------- | -------- | --------- | --------------------------------------- |
-| `blurRadius`        | `number` | 0         | The amount of blur to apply             |
-| `blurTintColor`     | `string` | undefined | Apply a tint color (hex with opacity)   |
-| `blurEnabled` (iOS) | `bool`   | undefined | Enable/disable blur                     |
-| `colorTintOpacity`  | `number` | undefined | Opacity of the color tint (iOS)         |
-| `scale`             | `number` | undefined | Scale factor of blur                    |
-
 ## Examples
 
 View the example app in [example/src/App.tsx](./example/src/App.tsx)
@@ -112,6 +97,43 @@ View the example app in [example/src/App.tsx](./example/src/App.tsx)
 
 - ✅ iOS (all features)
 - ❌ Android (not supported in this fork)
+
+## Troubleshooting
+
+### "Cannot read property 'VariableBlurView' of undefined"
+
+This error means the native module is not linked properly. Try these steps:
+
+1. **Remove node_modules and reinstall:**
+```sh
+rm -rf node_modules
+yarn install
+```
+
+2. **Clean iOS build:**
+```sh
+cd ios
+rm -rf Pods Podfile.lock
+pod install
+cd ..
+```
+
+3. **Reset Metro bundler cache:**
+```sh
+npx react-native start --reset-cache
+```
+
+4. **Clean and rebuild in Xcode:**
+   - Open your project in Xcode
+   - Press Cmd+Shift+K to clean
+   - Press Cmd+R to rebuild
+
+5. **Verify the pod is installed:**
+```sh
+cd ios && pod list | grep blur-view
+```
+
+You should see `tudorvalentine-blur-view` in the output.
 
 ## Contributing
 

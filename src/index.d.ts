@@ -1,15 +1,5 @@
-import { ViewStyle, ReactNode } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { Component } from 'react';
-
-export interface BlurViewProps {
-  style: ViewStyle;
-  blurTintColor?: string;
-  blurRadius: number;
-  blurEnabled?: boolean;
-  colorTintOpacity?: number;
-  scale?: number;
-  children?: ReactNode;
-}
 
 export enum VariableBlurDirection {
   BlurredTopClearBottom = 'blurredTopClearBottom',
@@ -35,6 +25,5 @@ export interface VariableBlurViewProps {
   startOffset?: number;
 }
 
-export class BlurView extends Component<BlurViewProps> {}
 export class VariableBlurView extends Component<VariableBlurViewProps> {}
 
