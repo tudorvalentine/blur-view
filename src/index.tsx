@@ -3,6 +3,7 @@ import {
   UIManager,
   Platform,
   ViewStyle,
+  ReactNode,
 } from 'react-native';
 
 const LINKING_ERROR =
@@ -10,6 +11,16 @@ const LINKING_ERROR =
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
+
+export type BlurViewProps = {
+  style: ViewStyle;
+  blurTintColor?: string;
+  blurRadius: number;
+  blurEnabled?: boolean;
+  colorTintOpacity?: number;
+  scale?: number;
+  children?: ReactNode;
+};
 
 export enum VariableBlurDirection {
   BlurredTopClearBottom = 'blurredTopClearBottom',
@@ -36,6 +47,13 @@ export type VariableBlurViewProps = {
 };
 
 const ComponentName = 'BlurViewView';
+
+export const BlurView =
+  UIManager.getViewManagerConfig(ComponentName) != null
+    ? requireNativeComponent<BlurViewProps>(ComponentName)
+    : () => {
+        throw new Error(LINKING_ERROR);
+      };
 
 export const VariableBlurView =
   UIManager.getViewManagerConfig(ComponentName) != null
