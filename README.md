@@ -1,8 +1,26 @@
-[![npm version](https://badge.fury.io/js/%40candlefinance%2Fblur-view.svg)](https://badge.fury.io/js/%40candlefinance%2Fblur-view)[![npm downloads](https://img.shields.io/npm/dm/%40candlefinance%2Fblur-view.svg)](https://npm.im/%40candlefinance%2Fblur-view)
+# BlurView for React Native (iOS)
 
-# BlurView for React Native (iOS & Android)
+A fork of [@candlefinance/blur-view](https://github.com/candlefinance/blur-view) with enhanced gradient blur capabilities.
 
-BlurView for React Native. Supports variable intensity and tint color via [UIVisualEffectView](https://developer.apple.com/documentation/uikit/uivisualeffectview).
+## What's New in This Fork
+
+### ✨ VariableBlurView - Gradient Blur
+
+Added a new `VariableBlurView` component for creating smooth gradient blur from full intensity to clear. Perfect for:
+- Blurring top/bottom portions of the screen
+- Creating smooth transitions between content
+- Fade effects in scroll containers
+
+### 🔧 Improvements
+
+- **Fixed harsh blur cutoff issue**: blur now transitions smoothly without visible edge lines
+- **Fixed pixelation** at blur edges
+- **Added startOffset parameter** for more natural gradient start
+- Removed dimming/tint view artifact for a cleaner effect
+
+### 📚 Credits
+
+Implementation based on [VariableBlur by @jtrivedi](https://github.com/jtrivedi/VariableBlurView)
 
 ## Preview
 
@@ -12,56 +30,88 @@ https://github.com/candlefinance/blur-view/assets/12258850/66fc73aa-7160-41b2-97
 
 ```sh
 yarn add @candlefinance/blur-view
+cd ios && pod install
 ```
 
 ## Usage
 
-Use the `BlurView` component to blur the content behind it.
+### VariableBlurView (New!)
+
+Use `VariableBlurView` to create gradient blur:
+
+```js
+import { VariableBlurView, VariableBlurDirection } from '@candlefinance/blur-view';
+
+// Blur from top
+<VariableBlurView
+  maxBlurRadius={20}
+  direction={VariableBlurDirection.BlurredTopClearBottom}
+  startOffset={-0.1}
+  style={{
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: 200,
+  }}
+/>
+
+// Blur from bottom
+<VariableBlurView
+  maxBlurRadius={20}
+  direction={VariableBlurDirection.BlurredBottomClearTop}
+  style={{
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 200,
+  }}
+/>
+```
+
+### BlurView (Original)
+
+Use `BlurView` for uniform blur:
 
 ```js
 import { BlurView } from '@candlefinance/blur-view';
 
 <BlurView
-  blurTintColor="#ff006780" // has to be hex with opacity
+  blurTintColor="#ff006780" // hex with opacity
   colorTintOpacity={0.2}
   blurRadius={10}
-  style={styles.top}
+  style={styles.blur}
 />;
 ```
 
-To use with [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated), wrap the BlurView in a `Animated.createAnimatedComponent`.
+## API Documentation
 
-```js
-import { BlurView } from '@candlefinance/blur-view';
-const AnimatedBlur = Animated.createAnimatedComponent(BlurView);
+### VariableBlurView Props
 
-const animatedProps = useAnimatedProps(() => {
-  const blurRadius = interpolate(
-    scrollY.value,
-    input,
-    output,
-    Extrapolate.CLAMP
-  );
+| Property        | Type                                                   | Default                   | Description                                                                                     |
+| --------------- | ------------------------------------------------------ | ------------------------- | ----------------------------------------------------------------------------------------------- |
+| `maxBlurRadius` | `number`                                               | 20                        | Maximum blur radius                                                                             |
+| `direction`     | `'blurredTopClearBottom'` \| `'blurredBottomClearTop'` | `'blurredTopClearBottom'` | Gradient direction (top to bottom or bottom to top)                                             |
+| `startOffset`   | `number`                                               | 0                         | Gradient start offset. Negative value (e.g. -0.1) creates a smoother transition                |
+| `style`         | `ViewStyle`                                            | required                  | React Native styles                                                                             |
 
-  return {
-    blurRadius,
-  };
-});
+### BlurView Props (original component)
 
-<AnimatedBlur animatedProps={animatedProps} />;
-```
+| Property            | Type     | Default   | Description                             |
+| ------------------- | -------- | --------- | --------------------------------------- |
+| `blurRadius`        | `number` | 0         | The amount of blur to apply             |
+| `blurTintColor`     | `string` | undefined | Apply a tint color (hex with opacity)   |
+| `blurEnabled` (iOS) | `bool`   | undefined | Enable/disable blur                     |
+| `colorTintOpacity`  | `number` | undefined | Opacity of the color tint (iOS)         |
+| `scale`             | `number` | undefined | Scale factor of blur                    |
 
-## Docs
+## Examples
 
-View the example app in the [example](./example/src/App.tsx) folder.
+View the example app in [example/src/App.tsx](./example/src/App.tsx)
 
-| Property            | Type     | Default   | Description                              |
-| ------------------- | -------- | --------- | ---------------------------------------- |
-| `blurRadius`        | `number` | 0         | The amount of blur to apply to the view. |
-| `blurTintColor`     | `string` | undefined | Apply a tint color to the blur           |
-| `blurEnabled` (iOS) | `bool`   | undefined | Hide blur                                |
-| `colorTintOpacity`  | `number` | undefined | Opacity of the color (iOS)               |
-| `scale`             | `number` | undefined | scale factor of blur                     |
+## Platform Support
+
+- ✅ iOS (all features)
+- ❌ Android (not supported in this fork)
 
 ## Contributing
 
