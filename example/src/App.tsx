@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { ScrollView, Dimensions, Image, StyleSheet } from 'react-native';
-import { VariableBlurView } from '@candlefinance/blur-view';
+import { VariableBlurView } from '@tudorvalentine/blur-view';
 // @ts-ignore
 import MyImage from '../images/deepmind.jpg';
 // @ts-ignore

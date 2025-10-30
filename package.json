@@ -41,13 +41,13 @@
         "ios",
         "android"
     ],
-    "repository": "https://github.com/candlefinance/blur-view",
-    "author": "Gary Tokman <gary@trycandle.com> (https://candle.fi)",
+    "repository": "https://github.com/tudorvalentine/blur-view",
+    "author": "Tudor Valentine <tudor@tudorvalentine.com> (https://tudorvalentine.com)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/candlefinance/blur-view/issues"
+        "url": "https://github.com/tudorvalentine/blur-view/issues"
     },
-    "homepage": "https://github.com/candlefinance/blur-view#readme",
+    "homepage": "https://github.com/tudorvalentine/blur-view#readme",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
