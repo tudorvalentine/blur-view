@@ -45,6 +45,11 @@ cd ios && pod install && cd ..
 2. Rebuild the app (Cmd+R)
 3. If you still see errors, try: `npx react-native start --reset-cache`
 
+### ⚠️ Compatibility with @react-native-community/blur
+
+This package uses a unique class name (`VariableBlurViewPackage`) to avoid conflicts with `@react-native-community/blur` or other blur libraries. You can safely install both packages in the same project without naming conflicts.
+
+
 ## Usage
 
 Use `VariableBlurView` to create gradient blur:
